@@ -1,0 +1,13 @@
+# 1. IDE 缓存（如 PyCharm 的 .idea 目录）
+.idea/  
+
+# 2. 编程语言缓存（如 Python）
+__pycache__/  
+*.py[cod]  
+
+# 3. 数据集（如果 data/ 是大文件，建议忽略，改用文档说明）
+data/  
+datasets/  
+
+# 4. 脚本临时文件（如 .sh 脚本的运行缓存，按需添加）
+*.log  
