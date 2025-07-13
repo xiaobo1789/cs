@@ -18,6 +18,7 @@ from training.coach_SID import Coach
 import os
 
 # 在 train_SID.py 或 coach_SID.py 中添加以下代码
+print(f"Current working directory: {os.getcwd()}")
 train_source_root = "./datasets/train/low"
 train_target_root = "./datasets/train/high"
 test_source_root = "./datasets/test/low"
