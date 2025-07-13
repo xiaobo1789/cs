@@ -12,3 +12,9 @@ datasets/
 # 4. 脚本临时文件（如 .sh 脚本的运行缓存，按需添加）
 *.log  trained_models_SMG_Low_Light_Enhancement/
 trained_models_SMG_Low_Light_Enhancement/
+# 忽略整个模型目录（递归忽略所有子文件）
+trained_models_SMG_Low_Light_Enhancement/datasets/
+datasets/LOL_real.py
+datasets/LOL_synthetic.py
+datasets/SID.py
+datasets/**/*.py
