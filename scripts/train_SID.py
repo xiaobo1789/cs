@@ -15,6 +15,29 @@ sys.path.append("..")
 from options.train_options import TrainOptions
 from training.coach_SID import Coach
 
+import os
+
+# 在 train_SID.py 或 coach_SID.py 中添加以下代码
+train_source_root = "./datasets/train/low"
+train_target_root = "./datasets/train/high"
+test_source_root = "./datasets/test/low"
+test_target_root = "./datasets/test/high"
+
+print(f"实际训练集低光照路径： {os.path.abspath(train_source_root)}")
+print(f"实际训练集正常光照路径： {os.path.abspath(train_target_root)}")
+print(f"实际测试集低光照路径： {os.path.abspath(test_source_root)}")
+print(f"实际测试集正常光照路径： {os.path.abspath(test_target_root)}")
+
+# 检查路径是否存在
+if not os.path.exists(train_source_root):
+    print(f"训练集低光照路径 {train_source_root} 不存在")
+if not os.path.exists(train_target_root):
+    print(f"训练集正常光照路径 {train_target_root} 不存在")
+if not os.path.exists(test_source_root):
+    print(f"测试集低光照路径 {test_source_root} 不存在")
+if not os.path.exists(test_target_root):
+    print(f"测试集正常光照路径 {test_target_root} 不存在")
+# 在 train_SID.py 或 coach_SID.py 中添加以下代码
 
 def main():
     opts = TrainOptions().parse()
