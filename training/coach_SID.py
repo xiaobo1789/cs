@@ -9,6 +9,7 @@ import torch
 from torch import nn, autograd
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
+from configs.data_configs import get_dataset_config
 import torch.nn.functional as F
 
 from utils import common, train_utils
@@ -455,8 +456,8 @@ class Coach:
         return optimizer
 
     def configure_datasets(self):
-        if self.opts.dataset_type not in data_configs.DATASETS.keys():
-            Exception('{} is not a valid dataset_type'.format(self.opts.dataset_type))
+        if self.opts.dataset_type not in get_dataset_config(self.opts).keys():
+            raise Exception('{} is not a valid dataset_type'.format(self.opts.dataset_type))
         print('Loading dataset for {}'.format(self.opts.dataset_type))
         dataset_args = data_configs.DATASETS[self.opts.dataset_type]
         transforms_dict = dataset_args['transforms'](self.opts).get_transforms()
@@ -465,8 +466,8 @@ class Coach:
         print("实际训练集正常光照路径：", dataset_args['train_target_root'])
         print("实际测试集低光照路径：", dataset_args['test_source_root'])
         print("实际测试集正常光照路径：", dataset_args['test_target_root'])
-        train_dataset = ImagesDataset2(source_root_pre=dataset_args['train_source_root'],
-                                       target_root_pre=dataset_args['train_target_root'],
+        train_dataset = ImagesDataset2(source_root_pre=dataset_args['source_root'],
+                                       target_root_pre=dataset_args['target_root'],
                                        source_transform=transforms_dict['transform_source'],
                                        target_transform=transforms_dict['transform_gt_train'],
                                        opts=self.opts, train=1)
