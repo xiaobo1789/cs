@@ -459,20 +459,21 @@ class Coach:
         if self.opts.dataset_type not in get_dataset_config(self.opts).keys():
             raise Exception('{} is not a valid dataset_type'.format(self.opts.dataset_type))
         print('Loading dataset for {}'.format(self.opts.dataset_type))
-        dataset_args = data_configs.DATASETS[self.opts.dataset_type]
+        dataset_args = get_dataset_config(self.opts)[self.opts.dataset_type]
+        print("dataset_args:", dataset_args)  # 添加打印语句
         transforms_dict = dataset_args['transforms'](self.opts).get_transforms()
         # 打印实际读取的训练集和测试集路径（关键调试信息）
-        print("实际训练集低光照路径：", dataset_args['train_source_root'])
-        print("实际训练集正常光照路径：", dataset_args['train_target_root'])
+        print("实际训练集低光照路径：", dataset_args['source_root'])
+        print("实际训练集正常光照路径：", dataset_args['target_root'])
         print("实际测试集低光照路径：", dataset_args['test_source_root'])
         print("实际测试集正常光照路径：", dataset_args['test_target_root'])
-        train_dataset = ImagesDataset2(source_root_pre=dataset_args['source_root'],
-                                       target_root_pre=dataset_args['target_root'],
+        train_dataset = ImagesDataset2(source_root=dataset_args['source_root'],
+                                       target_root=dataset_args['target_root'],
                                        source_transform=transforms_dict['transform_source'],
                                        target_transform=transforms_dict['transform_gt_train'],
                                        opts=self.opts, train=1)
-        test_dataset = ImagesDataset2(source_root_pre=dataset_args['test_source_root'],
-                                      target_root_pre=dataset_args['test_target_root'],
+        test_dataset = ImagesDataset2(source_root=dataset_args['test_source_root'],
+                                      target_root=dataset_args['test_target_root'],
                                       source_transform=transforms_dict['transform_source'],
                                       target_transform=transforms_dict['transform_test'],
                                       opts=self.opts, train=0)
