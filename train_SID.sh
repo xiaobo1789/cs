@@ -23,4 +23,6 @@ python -m torch.distributed.launch --nproc_per_node=4 --master_port=4507 scripts
 --save_interval 5000 \
 --optim_name adam \
 --w_discriminator_lr 0.0002 \
---learning_rate 0.0002
+--learning_rate 0.0002 \
+--keep_optimizer \
+--resume_training_from_ckpt E:\SMG-LLIE-main\trained_models_SMG_Low_Light_Enhancement\trained_models\SID\model.pt

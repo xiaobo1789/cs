@@ -24,7 +24,7 @@ python -m torch.distributed.launch --nproc_per_node=1 --master_port=4587 scripts
 --w_discriminator_lr 0.0005 \
 --learning_rate 0.0005 \
 --keep_optimizer \
---resume_training_from_ckpt trained_models/SID/model.pt
+--resume_training_from_ckpt E:\SMG-LLIE-main\trained_models_SMG_Low_Light_Enhancement\trained_models\SID\model.pt
 
 ## for the evaluation of edge generation.
 python -m torch.distributed.launch --nproc_per_node=1 --master_port=4587 scripts/test_SID_edge.py \
@@ -32,6 +32,7 @@ python -m torch.distributed.launch --nproc_per_node=1 --master_port=4587 scripts
 --exp_dir experiment/SID \
 --start_from_latent_avg \
 --use_w_pool \
+
 --w_discriminator_lambda 1.0 \
 --progressive_start 20000 \
 --id_lambda 0.5 \
@@ -48,5 +49,5 @@ python -m torch.distributed.launch --nproc_per_node=1 --master_port=4587 scripts
 --w_discriminator_lr 0.0005 \
 --learning_rate 0.0005 \
 --keep_optimizer \
---resume_training_from_ckpt trained_models/SID/model.pt
+--resume_training_from_ckpt E:\SMG-LLIE-main\trained_models_SMG_Low_Light_Enhancement\trained_models\SID\model.pt
 
