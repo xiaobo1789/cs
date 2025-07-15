@@ -3,7 +3,7 @@ import torch.nn as nn
 import functools
 
 class GlobalGenerator3(nn.Module):
-    def __init__(self, input_nc, output_nc, ngf=64, n_downsampling=3, n_blocks=9, padding_type='reflect'):
+    def __init__(self, input_nc, output_nc, ngf=32, n_downsampling=3, n_blocks=9, padding_type='reflect'):
         assert (n_blocks >= 0)
         super(GlobalGenerator3, self).__init__()
         activation = nn.ReLU(True)

@@ -16,7 +16,7 @@ from options.train_options import TrainOptions
 from training.coach_SID import Coach
 
 import os
-
+os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'max_split_size_mb:1024'  # 增大显存分配块大小，减少碎片1
 # 在 train_SID.py 或 coach_SID.py 中添加以下代码
 print(f"Current working directory: {os.getcwd()}")
 train_source_root = "./datasets/train/low"
