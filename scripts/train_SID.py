@@ -6,7 +6,6 @@ import json
 import math
 import sys
 import pprint
-import torch
 from argparse import Namespace
 
 sys.path.append(".")
@@ -16,13 +15,16 @@ from options.train_options import TrainOptions
 from training.coach_SID import Coach
 
 import os
+import torch
+torch.backends.cudnn.benchmark = False
+torch.backends.cudnn.deterministic = True
 os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'max_split_size_mb:1024'  # 增大显存分配块大小，减少碎片1
 # 在 train_SID.py 或 coach_SID.py 中添加以下代码
 print(f"Current working directory: {os.getcwd()}")
-train_source_root = "./datasets/train/low"
-train_target_root = "./datasets/train/high"
-test_source_root = "./datasets/test/low"
-test_target_root = "./datasets/test/high"
+train_source_root = r"E:\\SMG-LLIE-main\\datasets\\SID\\SMID_LQ_np"
+train_target_root = r"E:\\SMG-LLIE-main\\datasets\\SID\\SMID_Long_np"
+test_source_root = r"E:\\SMG-LLIE-main\\datasets\\SID\\SMID_LQ_test_np"
+test_target_root = r"E:\\SMG-LLIE-main\\datasets\\SID\\SMID_Long_test_np"
 
 print(f"实际训练集低光照路径： {os.path.abspath(train_source_root)}")
 print(f"实际训练集正常光照路径： {os.path.abspath(train_target_root)}")

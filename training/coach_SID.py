@@ -206,7 +206,9 @@ class Coach:
         self.refinement.train()
         self.refinement2.train()
         epoch = 0
-        ## loss = self.validate2()
+
+        # 梯度累积设置
+        accumulation_steps = 4  # 根据需要调整
 
         while self.global_step < self.opts.max_steps:
             for batch_idx, batch in enumerate(self.train_dataloader):
@@ -217,12 +219,20 @@ class Coach:
                     loss_dict = {**loss_dict2}
 
                 x, y, y_hat, latent, y_hat_inter, y_hat_sketch, sketch = self.forward(batch)
-                loss, encoder_loss_dict, id_logs = self.calc_loss(x, y, y_hat, latent, y_hat_inter, y_hat_sketch,
-                                                                  sketch)
+                loss, encoder_loss_dict, id_logs = self.calc_loss(x, y, y_hat, latent, y_hat_inter, y_hat_sketch, sketch)
                 loss_dict = {**loss_dict, **encoder_loss_dict}
-                self.optimizer.zero_grad()
+
+                # 梯度累积
+                loss = loss / accumulation_steps
                 loss.backward()
-                self.optimizer.step()
+
+                if (batch_idx + 1) % accumulation_steps == 0:
+                    self.optimizer.step()
+                    self.optimizer.zero_grad()
+
+                # 释放不再需要的变量
+                del x, y, y_hat, latent, y_hat_inter, y_hat_sketch, sketch, loss_dict, loss_dict2, loss, encoder_loss_dict, id_logs
+                torch.cuda.empty_cache()
 
                 # Logging related
                 if self.global_step % self.opts.image_interval == 0 or (
